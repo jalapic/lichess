@@ -17,7 +17,7 @@ ldata$elonf <-ifelse(ldata$w == 0, ldata$WhiteElo, ldata$BlackElo)
 
 
 ldata
-
+colnames(ldata)
 table(ldata$Username)
 table(ldata$Variant)
 table(ldata$TimeControl)
