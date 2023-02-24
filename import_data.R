@@ -14,3 +14,15 @@ ldata$result <- ifelse(ldata$w == 1 & ldata$Result == "1-0" |
 # white/black elo adjustments
 ldata$elof <- ifelse(ldata$w == 1, ldata$WhiteElo, ldata$BlackElo)
 ldata$elonf <-ifelse(ldata$w == 0, ldata$WhiteElo, ldata$BlackElo)
+
+
+ldata
+
+table(ldata$Username)
+table(ldata$Variant)
+table(ldata$TimeControl)
+
+
+###################
+
+
