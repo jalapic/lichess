@@ -1,4 +1,12 @@
- head(ldf)
+### Load in Data
+
+ldf <- readRDS("lorenzo/streaks.RData")
+head(ldf)
+
+#alternative way of saving - with csv
+#write.csv(ldf, "lorenzo/streaks.csv", row.names = F)
+#read.csv("lorenzo/streaks.csv)
+
 table(ldf$Username) 
 unique(ldf$Username)
 table(ldf$UserResult)
@@ -16,6 +24,7 @@ dd2 <- dd1[dd1$values=="Win",]
 head(dd2)
 str(dd2)
 
+library(tidyverse)
 ggplot(dd2, aes(x=len)) +
   geom_histogram(bins=15,color='darkseagreen', fill='lightseagreen') +
   theme_classic() +
@@ -43,18 +52,23 @@ dx
 range(dx$len)
 dx[dx$len>10,]
 
-ggplot(dx, aes(x=len)) +
-  geom_histogram(bins=25,color='darkseagreen', fill='lightseagreen') +
+table(dx$len)
+
+        
+p.win <- ggplot(dx, aes(x=len)) +
+  geom_histogram(bins=20,color='darkseagreen', fill='lightseagreen') +
   theme_classic() +
   scale_x_continuous(breaks=1:20) +
   ggtitle("Win Streaks")
 
-ggplot(dx, aes(x=len)) +
-  geom_histogram(bins=25,color='darkseagreen', fill='lightseagreen') +
-  theme_classic() +
-  scale_x_continuous(breaks=1:20) +
-  facet_wrap(~id) +
-  ggtitle("Win Streaks")
+p.win
+
+# ggplot(dx, aes(x=len)) +
+#   geom_histogram(bins=25,color='darkseagreen', fill='lightseagreen') +
+#   theme_classic() +
+#   scale_x_continuous(breaks=1:20) +
+#   facet_wrap(~id) +
+#   ggtitle("Win Streaks")
 
 #loss
 dl <- ldf[ldf$Username=="dburns2757",]
@@ -69,11 +83,12 @@ dl2 <- dd1[dd1$values=="Loss",]
 
 head(dl2)
 str(dl2)
+table(dl2$len)
 
 ggplot(dl2, aes(x=len)) +
-  geom_histogram(bins=15,color='darkseagreen', fill='lightseagreen') +
+  geom_histogram(bins=11,color='darkseagreen', fill='lightseagreen') +
   theme_classic() +
-  scale_x_continuous(breaks=1:15) +
+  scale_x_continuous(breaks=1:11) +
   ggtitle("Loss Streak")
 
 
@@ -96,23 +111,44 @@ dxl <- data.table::rbindlist(resl)
 dxl
 range(dxl$len)
 dxl[dxl$len>5,]
+table(dxl$len)
 
-ggplot(dxl, aes(x=len)) +
-  geom_histogram(bins=25,color='darkseagreen', fill='lightseagreen') +
+p.loss <- ggplot(dxl, aes(x=len)) +
+  geom_histogram(bins=11,color='darkseagreen', fill='lightseagreen') +
   theme_classic() +
-  scale_x_continuous(breaks=1:20) +
+  scale_x_continuous(breaks=1:11) +
   ggtitle("Loss Streaks")
 
-ggplot(dxl, aes(x=len)) +
-  geom_histogram(bins=25,color='darkseagreen', fill='lightseagreen') +
-  theme_classic() +
-  scale_x_continuous(breaks=1:20) +
-  facet_wrap(~idl) +
-  ggtitle("Loss Streaks")
+p.loss
+
+# ggplot(dxl, aes(x=len)) +
+#   geom_histogram(bins=11,color='darkseagreen', fill='lightseagreen') +
+#   theme_classic() +
+#   scale_x_continuous(breaks=1:11) +
+#   facet_wrap(~idl) +
+#   ggtitle("Loss Streaks")
 
 
 ## save data
-head(ldf)
+# head(ldf)
+# 
+# saveRDS(ldf,"lorenzo/streaks.RData")
 
-saveRDS(ldf,"lorenzo/streaks.RData")
+### 
 
+dx$val <- "wins"
+dxl$val <- "losses"
+colnames(dxl)[3]<-"id"
+dxx <- rbind(dx,dxl)
+
+ggplot(dxx, aes(x=len)) +
+  geom_histogram(bins=20, color='darkseagreen', fill='lightseagreen') +
+  theme_minimal() +
+  scale_x_continuous(breaks=1:20) +
+  facet_wrap(~val)
+
+
+ggplot(dxx, aes(x=len, fill=val)) +  
+  geom_histogram( binwidth=1, position="identity", color="black", alpha=.7) +
+  scale_fill_manual(values = c("#999999", "#E69F00"))  + 
+  theme_classic()
