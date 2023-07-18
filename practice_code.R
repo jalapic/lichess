@@ -1,6 +1,7 @@
 ### Practice using Chess Scraping Package
 
 library(tidyverse)
+<<<<<<< HEAD
 library(chessR)
 lgd <- get_game_data("JaseZiv")
 head(lgd)
@@ -133,3 +134,14 @@ date_runs <- rle(as.numeric(FG$EndDate) - min(as.numeric(FG$EndDate)))
 consecutive_lengths <- date_runs$lengths
 
 print(consecutive_lengths)
+=======
+
+
+### Function to scrape one player's data:
+
+
+# function to extract lichess game data
+lgd <- get_game_data("Lorenzo1")
+lgd
+colnames(lgd)
+>>>>>>> b2bf308383d038199d51a93a87f65a0757dafc4d
