@@ -4,26 +4,34 @@
 
 library(chessR)
 library(tidyverse)
-
-cas <- get_game_data("JaseZiv")
-cas
-
-
+cas <- get_game_data("NO-REGRET")
+bas <- get_game_data("jkidjr22")
+m1 <- get_game_data("Noctursa")
+m2 <- get_game_data("Martin_Stahl")
+l1 <- get_game_data("Fire_Gambit")
+l2 <- get_game_data("twoodwood")
+h8 <- get_game_data("XuYinglun")
+m8 <- get_game_data("plax1967")
 ### How to get more usernames ?  
 # could start with opponents of players already got...
 # could select by rating, or randomize
 # but would need to ensure got players with rating range and game type ranges
 # e.g.
 
-unique(c(cas$White,cas$Black))
+unique(c(m2$White,m2$Black))
 
-ids <- sample(unique(c(cas$White,cas$Black)),10,F)
+unique(cas$time_class)
 
+idm <- sample(unique(c(l1$White,l1$Black)),10,F)
+idm
+l <- get_game_data(idm)
+unique(ldata4$Username)
+unique(ldata$Username)
 # do for these ids - can put in as vector, or do as loop, which is better?
 # this takes a long time ! (15 mins for 10 players)
 # also, get some warning messages - some NAs added
 
-cdata <- get_game_data(ids)
+mdata <- get_game_data(ids)
 
 cdata #64625 rows of data.
 
