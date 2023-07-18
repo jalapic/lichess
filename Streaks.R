@@ -110,3 +110,9 @@ ggplot(dxl, aes(x=len)) +
   facet_wrap(~idl) +
   ggtitle("Loss Streaks")
 
+
+## save data
+head(ldf)
+
+saveRDS(ldf,"lorenzo/streaks.RData")
+
